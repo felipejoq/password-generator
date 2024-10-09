@@ -1,4 +1,6 @@
 ---
+import CoverImage from '../media/cover.jpg';
+
 interface Props {
     title?: string;
     description?: string;
@@ -16,6 +18,13 @@ const {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content={description}>
+
+    <!-- open graph -->
+    <meta property="og:title" content={title}>
+    <meta property="og:description" content={description}>
+    <meta property="og:image" content={CoverImage.src}>
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <title>{title}</title>
 </head>
 <body class="bg-gray-100 font-sans">
