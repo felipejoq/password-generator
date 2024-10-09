@@ -2,6 +2,7 @@ import React from "react";
 import {usePasswordGenerator} from "../utils/usePasswordGenerator.ts";
 
 import { Toaster, toast } from 'sonner'
+import {RangeSelect} from "./shared/Range/RangeSelect.tsx";
 
 export const PasswordGenerator: React.FC = () => {
 
@@ -32,6 +33,10 @@ export const PasswordGenerator: React.FC = () => {
         });
     };
 
+    const handleRange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPasswordLength(parseInt(e.target.value));
+    }
+
     return (
         <>
             <div className="bg-white shadow-lg rounded-lg p-6 max-w-xl mx-auto">
@@ -39,13 +44,13 @@ export const PasswordGenerator: React.FC = () => {
                     <input
                         id="generated-password" type="text"
                         value={password}
-                        className="w-full border border-gray-300 rounded-lg p-3 text-xl text-gray-800"
+                        className="w-full border border-gray-300 rounded-lg px-2 py-3 text-xl text-gray-800"
                         readOnly
                         placeholder="El password generado aparecerá aquí"
                     />
                     <button
                         onClick={copyToClipboard}
-                        className="bg-blue-500 text-white px-4 py-2 rounded-lg ml-4 hover:bg-blue-600"
+                        className="bg-blue-500 text-white rounded-lg px-4 py-3 ml-4 hover:bg-blue-600"
                     >
                         Copiar
                     </button>
@@ -58,21 +63,10 @@ export const PasswordGenerator: React.FC = () => {
                 </h2>
 
                 <div className="mb-4">
-                    <label htmlFor="length" className="block text-gray-700 font-medium mb-2">
-                        Longitud de la contraseña
-                    </label>
-                    <input
-                        id="length"
-                        type="number"
-                        min="6"
-                        max="64"
-                        value={passwordLength}
-                        onChange={(e) => setPasswordLength(parseInt(e.target.value))}
-                        className="w-full border border-gray-300 rounded-lg p-3"
-                    />
+                    <RangeSelect handleRange={handleRange} passwordLength={passwordLength} />
                 </div>
 
-                <div className="flex flex-wrap gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="flex items-center">
                         <input
                             id="uppercase"
@@ -81,7 +75,7 @@ export const PasswordGenerator: React.FC = () => {
                             type="checkbox"
                             className="form-checkbox h-5 w-5 text-blue-600"
                         />
-                        <label htmlFor="uppercase" className="ml-2 text-gray-700">
+                        <label htmlFor="uppercase" className="ml-2 text-gray-700 text-sm">
                             Incluir letras mayúsculas
                         </label>
                     </div>
@@ -94,7 +88,7 @@ export const PasswordGenerator: React.FC = () => {
                             type="checkbox"
                             className="form-checkbox h-5 w-5 text-blue-600"
                         />
-                        <label htmlFor="lowercase" className="ml-2 text-gray-700">
+                        <label htmlFor="lowercase" className="ml-2 text-gray-700 text-sm">
                             Incluir letras minúsculas
                         </label>
                     </div>
@@ -105,7 +99,7 @@ export const PasswordGenerator: React.FC = () => {
                             checked={passwordIncludeNumbers}
                             onChange={(e) => setPasswordIncludeNumbers(e.target.checked)}
                             type="checkbox"
-                            className="form-checkbox h-5 w-5 text-blue-600"
+                            className="form-checkbox h-5 w-5 text-blue-600 text-sm"
                         />
                         <label htmlFor="numbers" className="ml-2 text-gray-700">
                             Incluir números
@@ -120,7 +114,7 @@ export const PasswordGenerator: React.FC = () => {
                             type="checkbox"
                             className="form-checkbox h-5 w-5 text-blue-600"
                         />
-                        <label htmlFor="symbols" className="ml-2 text-gray-700">
+                        <label htmlFor="symbols" className="ml-2 text-gray-700 text-sm">
                             Incluir símbolos
                         </label>
                     </div>
@@ -135,7 +129,7 @@ export const PasswordGenerator: React.FC = () => {
                     </button>
                 </div>
             </div>
-            <Toaster />
+            <Toaster/>
         </>
     )
 }
