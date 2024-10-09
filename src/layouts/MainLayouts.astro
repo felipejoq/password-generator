@@ -1,0 +1,62 @@
+---
+interface Props {
+    title?: string;
+    description?: string;
+}
+
+const {
+    title = 'Generador de Password Aleatorios',
+    description = 'Crea passwords seguros y difíciles de descifrar al instante.',
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content={description}>
+    <title>{title}</title>
+</head>
+<body class="bg-gray-100 font-sans">
+
+<!-- Header -->
+<header class="bg-blue-600 text-white text-center py-6">
+    <h1 class="text-3xl font-bold">
+        <a href="/">
+            {title}
+        </a>
+    </h1>
+    <p class="mt-2 text-sm">
+        Crea passwords seguros y difíciles de descifrar al instante.
+    </p>
+    <nav class="text-sm">
+        <ul class="flex justify-center gap-5 mt-4">
+            <li>
+                <a href="/" class="text-white hover:text-gray-300 transition-colors duration-300">
+                    Inicio
+                </a>
+            </li>
+            <li>
+                <a href="/como-funciona-generador-password" class="text-white hover:text-gray-300 transition-colors duration-300">
+                    ¿Cómo funciona?
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Main Content -->
+<main class="container mx-auto px-4 py-8">
+    <slot />
+</main>
+
+<!-- Footer -->
+<footer class="bg-blue-600 text-white text-center py-4 mt-8">
+    <p class="text-sm">Generador de Contraseñas Seguras</p>
+    <small>Hecho con el ❤️ por Felipe Jofré</small>
+</footer>
+
+</body>
+</html>
+

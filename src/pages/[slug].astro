@@ -1,0 +1,31 @@
+---
+import type {CollectionEntry} from "astro:content";
+import { getCollection } from 'astro:content';
+import type {GetStaticPaths} from "astro";
+import MainLayouts from "../layouts/MainLayouts.astro";
+
+export const getStaticPaths = (async () => {
+	const articles = await getCollection('articles') ?? [];
+	return articles.map((article:any) => ({
+        params: { slug: article.slug },
+        props: article,
+    }));
+}) satisfies GetStaticPaths;
+
+type Props = CollectionEntry<'articles'>;
+
+const article = Astro.props;
+const { title, description } = article.data;
+
+const { Content } = await article.render();
+
+---
+
+<MainLayouts
+        title={title}
+        description={description}
+>
+    <div class="bg-white shadow-lg rounded-lg p-6 max-w-xl mx-auto mt-6 prose">
+        <Content />
+    </div>
+</MainLayouts>
